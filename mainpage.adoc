@@ -17,7 +17,7 @@
 :experimental:
 //Uncomment to embed images
 //:data-uri:
-:toc: left
+:toc: preamble
 
 //settings
 include::_settings.adoc.txt[]
