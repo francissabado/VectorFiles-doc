@@ -11,13 +11,14 @@
 //:revdate:
 //:revremark:
 //:revnumber:
+:toc: preamble
 
 //settings
 include::_settings.adoc.txt[]
 
 Document generated with Asciidoctor {asciidoctor-version}.
 
-:toc: left
+
 
 == Documentation:
 

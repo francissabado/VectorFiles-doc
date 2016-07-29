@@ -11,6 +11,12 @@
 //:revdate:
 //:revremark:
 //:revnumber:
+//Formatting
+:doctype: article
+//Enable Experimental features
+:experimental:
+//Uncomment to embed images
+//:data-uri:
 
 //settings
 include::_settings.adoc.txt[]
