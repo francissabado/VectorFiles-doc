@@ -1,0 +1,50 @@
+//Formatting
+:doctype: article
+//Enable Experimental features
+:experimental:
+//Uncomment to embed images
+//:data-uri:
+
+//Sections and Headings
+:sectlinks:
+:toclevels: 5
+
+
+//Icons
+:icons: font
+:iconfont-name: font-awesome
+
+//Directories
+:srcdir: ./src
+//:imagesdir: ./images
+:iconsdir: ./icons
+:stylesdir: ./styles
+:assets-dir: ./assets
+
+//Styles Option
+:coderay-css: class
+:linkcss:
+
+////
+Code Highlighting
+Options:
+highlightjs
+coderay
+pygments
+prettify
+////
+
+:source-highlighter: highlightjs
+
+ifeval::[{source-highlighter} == highlightjs]
+//Apply highlightjs style
+:highlightjs-theme: solarized_dark
+endif::[]
+
+ifeval::[{source-highlighter} == pygments]
+//Apply pygments style
+:pygments-style: vim
+endif::[]
+
+//Disable prewrap grobally (thus, enabling nowrap)
+:prewrap!:

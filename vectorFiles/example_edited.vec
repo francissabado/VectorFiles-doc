@@ -1,0 +1,264 @@
+;Vector Input File Header File for Chartered 130nm
+
+;Documentation
+;/mscad/apps/Linux/cadence/IC615/doc/UltraSim_User/UltraSim_Chap13.html#52472
+
+;HLCheck is a special flag that you need to set to generate the vector output check for H and L states of input signals.
+;Bidirectional and output signals always check H and L states and are unaffected by the HLCheck flag. 
+;Normally, you do not need to use the HLCheck flag unless it is necessary to check if input signals are shorted 
+;in the netlist file. The output resistance of H and L states for input signals can be specified by the hlz statement.
+
+;Comment Line
+;A comment line begins with a semicolon `(;).
+;Continuous Line
+;A continuous line is indicated by a plus sign `(+).
+;The maximum length of a line is 1024 characters. 
+;If a card is longer than 1024 characters, you need to use the continuous line for the card.
+
+;Signal Mask
+;A signal mask can be used to specify the effective range of the current statement in a vector file (statement applies 
+;to specific signals). The Virtuoso UltraSim simulator matches the signals according to the signal definition order in 
+;the radix, vname, and io statements. For the corresponding signal, a value of 1 indicates the statement is valid and 
+;a value of 0 indicates the statement is ignored. Based on the size of the vector specified in the radix statement, 
+;the signal mask value can range from 0 to 1 for 1bit, 0 to 3 for 2bit, 0 to 7 for 3bit, and 0 to 9 or A to F for 4bit.
+
+
+;Expected Output and Comparison Result Waveforms for Digital Vector Files
+;If a digital vector file contains output or bi-directional vectors, the Virtuoso UltraSim simulator generates two
+;waveform files: One contains all the expected output vector waveforms as specified in the digital vector file and 
+;the other contains the waveforms from the comparison results.
+;You can use the following statement in the digital vector file to enable or disable the simulator from generating
+; these waveforms (default is 1 or enabled).
+;
+;ex: output_wf 0|1
+;
+;The waveform format is defined by the wf_format option in the analog netlist file. A maximum of two waveform files 
+;are generated for one or more digital vector files. The expected waveform filename is netlist.vecexp.trn (PSF, FSDB,
+; etc.) and the output vector is signal_name_exp. The comparison waveform filename is netlist.vecerr.trn (PSF, FSDB,
+;  etc.) and each comparison waveform is signal_name_err.
+;
+;The comparison result values include,
+;0 - matched
+;1 - mismatched
+;X - ignored (output vector = X or bi-directional vector at input stage are possible causes)
+;
+;In addition to the individual comparison result waveforms, the simulator generates a single vec_error waveform 
+;to indicate the overall comparison results. Waveform vec_error equals 1 when any of the individual comparison 
+;result waveforms also have a value of 1 (X is treated as 0).
+output_wf 1
+
+;hier
+;ex: hier 0|1
+;This option is used to specify whether or not the hierarchical signal name mapping feature is enabled. 
+;If hier is set to 0, the hierarchical delimiter (for example, signal period or .) is considered to be part of 
+;the signal name. The default value is 1 (hierarchical signal name mapping enabled). If this statement is 
+;specified more than once, the last value is used.
+
+;tunit
+;tunit time_unit
+;Sets the time unit for all time related variables. The time unit can be one of the following: fs (femto-second), 
+;ps (pico-second), ns (nano-second), us (micro-second), and ms (milli-second). The default time unit is 1 ns. 
+;If this statement is specified more than once, the last value is used. 
+tunit 1ns
+
+;period
+;ex: period time
+;The period statement is used to specify the time interval for tabular data, so that the absolute time is not needed.
+;If period is not specified, then the absolute time must be specified in the tabular data. If it is specified more 
+;than once, the last value is used. 
+;period 100
+
+;slope
+;ex: slope time [mask1 mask2 ... maskN]
+;The slope statement sets the input vectors rise and fall time. You can provide a mask to specify which vector and 
+;bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;If this statement is not specified, then the default value of 0.1 ns is used. If this statement is specified more 
+;than once, the last value is used for the active mask. This statement can also overrule the value previously set by 
+;the trise or tfall statements.
+;slope .01
+
+;trise
+;ex: trise time [mask1 mask2 ...maskN]
+;The trise statement specifies the rise time of the input vector. You can provide a mask to specify which vector and 
+;bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;If trise is not specified, the value from the slope statement is used. If this statement is specified more than 
+;once, the last value is used for the active mask. This statement can also overrule the value previously set by 
+;the slope statement.
+trise .01
+
+;tfall
+;ex: tfall time [mask1 mask2 ...maskN]
+;The tfall statement specifies the falling time of the input vector. You can provide a mask to specify which vector 
+;and bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;The value from the slope statement is used, if tfall is not specified. If this statement is specified more than 
+;once, the last value is used for the active mask. This statement can also overrule the value previously set by 
+;the slope statement.
+tfall .01
+
+;vih
+;ex: vih voltage [mask1 mask2 ...maskN]
+;The vih statement specifies the logic high voltage of the input vector. You can provide a mask to specify which 
+;vector and bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;If vih is not specified, the default voltage is 3.3. If this statement is specified more than once, the last value 
+;is used for the active mask.
+vih 1.5
+
+;vil
+;ex: vil voltage [mask1 mask2 ... maskN]
+;The vil statement specifies the logic low voltage of the input vector. You can provide a mask to specify which 
+;vector and bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;If vil is not specified, the default voltage is 0.0. If this statement is specified more than once, the last value 
+;is used for the active mask.
+vil 0.0
+
+;voh
+;ex: voh voltage [mask1 mask2 ... maskN]
+;The voh statement specifies the logic high voltage of the output vector. You can provide a mask to specify which 
+;vector and bit to apply. If the mask is not specified, the setting applies to all output vectors.
+;If voh is not specified, the default voltage is 3.3. If this statement is specified more than once, the last value 
+;is used for the active mask.
+voh 1.5
+
+;vol
+;ex: vol voltage [mask1 mask2 ... maskN]
+;The vol statement specifies the logic low voltage of the output vector. You can provide a mask to specify which 
+;vector and bit to apply. If the mask is not specified, the setting applies to all output vectors.
+;If vol is not specified, the default voltage is 0.0. If this statement is specified more than once, the last value 
+;is used for the active mask.
+vol 0.4
+
+;avoh
+;ex: avoh voltage [ signal_name1 signal_name2 ... signal_nameN ]
+;The avoh statement specifies the logic high voltage of the signal from the analog netlist file, which is not defined 
+;in the radix, vname, or io statements. You can provide signal names to specify the valid scope for avoh (wildcards 
+;are supported). A period (. ) can be used as the hierarchical delimiter to specify the hierarchical signal. If a 
+;signal name is not used, the setting applies to all analog signals used in the vector file.
+;For more information about wildcards, see "Wildcard Rules".
+;Note: A mask cannot be used to specify which vector and bit to apply to the signal (different behavior from other 
+;vector format statements).
+avoh 1.2
+
+;avol
+;ex: avol voltage [ signal_name1 signal_name2 ... signal_nameN ]
+;The avol statement specifies the logic low voltage of the signal from the analog netlist file, which is not defined 
+;in the radix, vname or io statements. You can provide signal names to specify the valid scope for avol (wildcards 
+;are supported). A period (.) can be used as the hierarchical delimiter to specify the hierarchical signal. If a 
+;signal name is not used, the setting applies to all analog signals used in the vector file.
+avol .4
+
+;vref
+;ex: vref node_name [mask1 mask2 ... maskN]
+;The vref statement sets the reference node of the input vector. You can provide a mask to specify which vector and 
+;bit to apply. If the mask is not specified, the setting applies to all input vectors.
+;If vref is not specified, the default value is 0 (that is, the ground). If this statement is specified more than 
+;once, the last value is used for the active mask.
+vref 0
+
+;vth
+;ex: vth voltage [mask1 mask2 ... maskN]
+;The vth statement sets the threshold voltage of the output vector. You can provide a mask to specify which vector 
+;and bit to apply. If the mask is not specified, the setting applies to all output vectors.
+;If vth is not specified, the default value is 1.65. If this statement is specified more than once, the last value 
+;is used for the active mask.
+;vth 0.75
+
+;radix
+;ex: radix vector1_size1 vector2_size2 ...vector_sizeN
+;Specifies the size (in bits) of the vector. 
+;This statement must be located before any other statements, and can only be specified once. 
+;Valid vector sizes include 1 (binary), 2, 3 (octal), or 4 (hexadecimal).
+
+;io
+;io type1 type2 ...typeN
+;The io statement defines the type of vector. It can be the i (input), o (output), or b (bidirectional) type. 
+;If this statement is specified more than once, the last value is used. 
+
+;vname
+;vname name1 name2 ... nameN
+;The vname statement assigns a name to each vector. For a single bit vector, it can have the following naming format: 
+;Va, Va[0:0], or Va[[0:0]]. For multiple bit vectors, the naming formats include: Va[2:0], Va[[2:0]], Va[0:2], or 
+;Va[[0:2]]. Each naming format is given a different resulting name. If this statement is specified more than once, 
+;the last value is used.
+;
+;Hierarchical signal names are also supported by vname. That is, you can apply vector stimuli or perform a vector 
+;check on the internal signals of instances. When mapping hierarchical signal names, the default delimiter is a 
+;period (.). You can change the value of the delimiter using the hier_delimiter option in the analog netlist file. 
+;The hier statement can be used to enable or disable this option.
+
+;chk_window
+;ex: chk_window start_time end_time steady [period=const [first=const] ] [mask1 mask2 ... maskN]
+;The chk_window statement specifies a window for vector checking. The Virtuoso UltraSim simulator only checks the 
+;signal states within this window. The signal states outside the window are ignored. 
+;You can provide a mask to specify which vector and bit to apply. If the mask is not specified, the setting applies 
+;to all output vectors. The checks occur at every time point specified in the vector file or as defined by the 
+;period and first arguments.
+;Setting the period argument activates periodic window checking. If period is not defined, the first argument is 
+;ignored by the simulator.
+;chk_window -10 40 1 period=50 first=0
+
+
+;Tabular Data
+;This section describes the values of signals at specified times (absolute or period time modes). For periodic 
+;signals, it is unnecessary to specify the absolute time at each time point. The period statement can be used to 
+;specify the signal period.
+;---Absolute Time Mode---
+;The period is not specified.
+;Time1 vector1_value1 vector2_value1 vector3_value1
+;Time2 vector1_value2 vector2_value2 vector3_value2
+;...
+;TimeN vector1_valueN vector2_valueN vector3_valueN
+;---Period Time Mode---
+;The period is specified.
+;vector1_value1 vector2_value1 vector3_value1
+;vector1_value2 vector2_value2 vector3_value2
+;...
+;vector1_valueN vector2_valueN vector3_valueN
+;
+;vector_value can be 0-9, A-F, Z, X, L, H, or U, and is dependent on how radix is set.
+
+radix,1,1,1
+io,i,i,o
+vname,A,B,Z
+; Timeslot,A,B,Z
+0,0,0,1
+50,0,0,1
+100,0,1,0
+150,0,0,1
+200,1,0,0
+250,0,0,1
+300,1,1,0
+350,0,0,1
+400,0,0,1
+450,0,0,1
+500,0,0,1
+550,0,0,1
+600,0,0,1
+650,0,0,1
+700,0,0,1
+750,0,0,1
+800,0,0,1
+850,0,0,1
+900,0,0,1
+950,0,0,1
+1000,0,0,1
+1050,0,0,1
+1100,0,0,1
+1150,0,0,1
+1200,0,0,1
+1250,0,0,1
+1300,0,0,1
+1350,0,0,1
+1400,0,0,1
+1450,0,0,1
+1500,0,0,1
+1550,0,0,1
+1600,0,0,1
+1650,0,0,1
+1700,0,0,1
+1750,0,0,1
+1800,0,0,1
+1850,0,0,1
+1900,0,0,1
+1950,0,0,1
+2000,0,0,1
+﻿,,,

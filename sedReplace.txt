@@ -1,0 +1,12 @@
+
+You can use sed as:
+
+sed 's/\t/,/g' input_file > output_file
+
+This will keep the input file unchanged and will create a new file output_file with the changes.
+
+If you want to change the input file itself without creating a new file you can use -i option to sed to do inplace changes:
+
+sed -i 's/\t/,/g' input_file 
+
+

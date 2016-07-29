@@ -1,0 +1,96 @@
+;Vector Input File Header File for Chartered 130nm
+; radix specifies the number of bit of the vector.
+
+output_wf 1
+
+;radix 1 1 1 1 1 1 1111111111111111 11111111111111 1111111111111111 11 1111111111111111 111111111 11111111111111 11 1111111111111111 111111
+
+; io defines the vector as an input or output vector.
+
+;io i i i i o o iiiiiiiiiiiiiiii iiiiiiiiiiiiii iiiiiiiiiiiiiiii oo oooooooooooooooo ooooooooo oooooooooooooo oo oooooooooooooooo oooooo
+
+; tunit sets the time unit 1ns.
+tunit ns
+
+; trise specifies the rise time of each input vector.
+trise 5
+
+; tfall specifies the fall time of each input vector.
+tfall 5
+
+; vih specifies the logic high voltage of each input vector.
+vih 1.5
+
+; vil specifies the logic low voltage of each input vector.
+vil 0.0
+
+; voh specifies the logic high trip voltage of each output vector.
+voh 1.2
+
+; vol specifies the logic low trip voltage of each output vector.
+vol 0.4
+
+; avol .4
+
+; avoh 1.2
+
+;Format
+;timestamp input_vector1 input_vector2 input_vector3 ... output_vector1
+
+; vname assigns the name to the vector.
+; Uncomment the line below. Then change the net names.
+; In addition, change the `radix` and the `io` lines
+;vname           cpu_en dco_clk nmi reset_n dmem_cen pmem_cen pmem_dout<[15:0]> irq<[13:0]> dmem_dout<[15:0]> pmem_wen<[1:0]> pmem_din<[15:0]> pmem_addr<[8:0]> irq_acc<[13:0]> dmem_wen<[1:0]> dmem_din<[15:0]> dmem_addr<[5:0]> 
+
+
+
+radix	1	1	1
+io	i	i	o
+vname	A	B	Z
+; Timeslot	A	B	Z
+0	0	0	1
+50	0	0	1
+100	0	1	0
+150	0	0	1
+200	1	0	0
+250	0	0	1
+300	1	1	0
+350	0	0	1
+400	0	0	1
+450	0	0	1
+500	0	0	1
+550	0	0	1
+600	0	0	1
+650	0	0	1
+700	0	0	1
+750	0	0	1
+800	0	0	1
+850	0	0	1
+900	0	0	1
+950	0	0	1
+1000	0	0	1
+1050	0	0	1
+1100	0	0	1
+1150	0	0	1
+1200	0	0	1
+1250	0	0	1
+1300	0	0	1
+1350	0	0	1
+1400	0	0	1
+1450	0	0	1
+1500	0	0	1
+1550	0	0	1
+1600	0	0	1
+1650	0	0	1
+1700	0	0	1
+1750	0	0	1
+1800	0	0	1
+1850	0	0	1
+1900	0	0	1
+1950	0	0	1
+2000	0	0	1
+
+
+; chk_window start_time end_time steady [period=const [first=const] ] [mask1 mask2 ... maskN]
+chk_window -10 40 1 period=50 first=0
+
